@@ -1,18 +1,11 @@
 #!/bin/sh
 
+eprint () { echo "$@" >&2; }
+die () { code=$1; shift; eprint "$@"; exit $code; }
+
 HOST="$1"
 
 [ -n "$HOST" ] || die 1 "usage: $0 ssh-hostname"
-
-eprint () {
-	echo "$@" >&2
-}
-
-die () {
-	code=$1; shift
-	eprint "$@"
-	exit $code
-}
 
 if [ ! -e ~/.ssh/id_rsa ]; then
 	eprint "generating new rsa ssh key"
