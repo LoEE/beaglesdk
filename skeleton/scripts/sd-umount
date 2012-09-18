@@ -1,0 +1,3 @@
+#!/bin/sh
+set -e
+umount /media/boot /media/root

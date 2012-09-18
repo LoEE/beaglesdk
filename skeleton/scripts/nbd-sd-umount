@@ -1,0 +1,4 @@
+#!/bin/sh
+set -e
+./sd-umount
+nbd-client -d /dev/$1

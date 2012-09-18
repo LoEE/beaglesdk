@@ -1,0 +1,7 @@
+#!/bin/sh
+NBD=nbd9
+
+set -e
+(cd $HOME/scripts && sudo ./nbd-sd-mount "$1" $NBD)
+bash
+(cd $HOME/scripts && sudo ./nbd-sd-umount $NBD)

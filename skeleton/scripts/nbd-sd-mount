@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+if nbd-client -c /dev/$2; then
+  umount /dev/$2* 2>&1 | grep -v 'not mounted' || true
+  echo 'disconnecting block device...'
+  nbd-client -d /dev/$2
+fi
+nbd-client $1 /dev/$2
+partprobe /dev/$2
+./sd-mount ${2}p

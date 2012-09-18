@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+mkdir -p /media/boot /media/root
+mount /dev/${1}1 /media/boot
+mount /dev/${1}2 /media/root

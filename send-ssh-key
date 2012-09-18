@@ -1,0 +1,24 @@
+#!/bin/sh
+
+HOST="$1"
+
+[ -n "$HOST" ] || die 1 "usage: $0 ssh-hostname"
+
+eprint () {
+	echo "$@" >&2
+}
+
+die () {
+	code=$1; shift
+	eprint "$@"
+	exit $code
+}
+
+if [ ! -e ~/.ssh/id_rsa ]; then
+	eprint "generating new rsa ssh key"
+	ssh-keygen -t rsa -f ~/.ssh/id_rsa
+fi
+
+[ -e ~/.ssh/id_rsa.pub ] || die 2 "public key not found"
+
+cat ~/.ssh/id_rsa.pub | ssh "$HOST" 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod -R go= ~/.ssh'

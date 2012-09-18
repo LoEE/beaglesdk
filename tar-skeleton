@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd skeleton
+tar -cf ../skeleton.tar .

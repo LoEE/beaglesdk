@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+
+# 1. MANUALLY: sudo apt-get install openssh-server
+# 2. rsync -avP ubuntu-template/ iris:
+# 3. ssh iris -t 'sudo environment-setup'
+
+apt-get update
+apt-get install build-essential libtool autoconf automake gcc-multilib \
+  ncurses-dev libexpat1-dev zlib1g-dev \
+  gperf texinfo bison flex gettext \
+  gawk unzip curl \
+  subversion git \
+  nbd-client \
+  vim zsh pv htop screen
+
+cat > /etc/sudoers.d/nopasswd <<EOF
+%sudo ALL=(ALL:ALL) NOPASSWD:ALL
+EOF
+chmod a=,ug+r /etc/sudoers.d/nopasswd
