@@ -8,7 +8,7 @@ apt-get install build-essential libtool autoconf automake gcc-multilib \
   gawk unzip curl \
   subversion git mercurial \
   nbd-client \
-  vim zsh pv htop screen colordiff
+  vim zsh pv htop screen colordiff mc
 
 cat > /etc/sudoers.d/nopasswd <<EOF
 %sudo ALL=(ALL:ALL) NOPASSWD:ALL
