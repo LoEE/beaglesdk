@@ -6,7 +6,7 @@ apt-get install build-essential libtool autoconf automake gcc-multilib \
   ncurses-dev libexpat1-dev zlib1g-dev \
   gperf texinfo bison flex gettext cmake \
   gawk unzip curl \
-  subversion git mercurial \
+  subversion git mercurial pastebinit ack-grep \
   nbd-client \
   vim zsh pv htop screen colordiff mc
 
