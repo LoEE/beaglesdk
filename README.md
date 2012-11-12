@@ -101,7 +101,7 @@ glibc (the C library). It will create a toolchain optimized for the OMAP3 in the
 hardfp ABI (it will pass floating point arguments to functions via FPU registers without copying
 them to memory or moving to ARM integer registers).
 
-    cd /opt && hg clone ssh://hg@bitbucket.org/jpc/crosstool-ng && cd crosstool-ng
+    cd /opt && hg clone https://bitbucket.org/jpc/crosstool-ng && cd crosstool-ng
     ./configure --prefix=$PWD
     make install
     bin/ct-ng arm-omaphf-linux-gnueabi
