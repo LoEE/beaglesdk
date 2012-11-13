@@ -102,7 +102,7 @@ hardfp ABI (it will pass floating point arguments to functions via FPU registers
 them to memory or moving to ARM integer registers).
 
     cd /opt && hg clone https://bitbucket.org/jpc/crosstool-ng && cd crosstool-ng
-    ./configure --prefix=$PWD
+    ./bootstrap && ./configure --prefix=$PWD
     make install
     bin/ct-ng arm-omaphf-linux-gnueabi
     bin/ct-ng menuconfig    # optional
