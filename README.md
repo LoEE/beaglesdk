@@ -71,7 +71,33 @@ and then add it to `~/.ssh/authorized_keys` file on the specified server (`bsdk`
 
 ## Working with SD cards
 
-TODO: how to correctly partition and format an SD card
+### Partitioning and formatting an SD card
+
+TODO (for now please make a google search on partitioning SD cards for OMAP3)
+
+### Updating the SD card contents
+
+You can use two helper scripts which you can find in the top buildroot directory `/opt/buildroot`:
+`cpboot` and `cproot`.
+
+The `./cpboot` command will copy the kernel and bootloader files to `/media/boot` while trying to be smart
+about any changes you may have made to `uEnv.txt`.
+
+The `./cproot` command will unpack the new rootfs into `/media/root` while preserving:
+ * `/etc/ssh_host*` files
+ * the whole `/root` directory
+unless the `clean` argument is passed (`./cproot clean`). This helps avoid problems with SSH host identification
+change warnings and preserves the SSH authorized key list as well as any other files you may have left in the
+root user home dir.
+
+Both scripts need administrator access so they make frequent use of `sudo`. If you are building remotely then
+you will have to transfer the `output/images` directory to the computer with the SD card reader before running
+the scripts. Feel free to edit these scripts as needed (for example if you wish to rename the destination
+directories).
+
+### Using the Network Block Device (ndb) server
+
+/WARNING: this setup is unfortunately very fragile so it may take quite a bit of time to configure./
 
 If your compilation server is in a remote location or you just cannot plug a USB card reader directly
 into it you can export your local block device representing the SD card over SSH (this is also better and faster
@@ -82,17 +108,10 @@ server (`nbd-server` program) on your local computer (replace /dev/rdisk1 with a
 
 When you want to load the card with a new kernel and/or filesystem execute:
 
-    sudo umount /dev/rdisk1* && ssh bsdk -t 'cd /opt/buildroot/output/images && ~/scripts/nbd-go "localhost 2005"'
+    sudo umount /dev/rdisk1* && ssh bsdk -t 'cd /opt/buildroot && ~/scripts/nbd-go "localhost 2005"'
 
 This will leave you in the shell on the target server with the SD card mounted
-in `/media/boot` and `/media/root`. You are already placed in the buildroot output
-directory so you can directly copy the "kernel" files with:
-
-    (sudo rm -rf /media/boot/*; sudo cp MLO u-boot.img uEnv.txt uImage /media/boot/)
-
-If you also wish to replace the root filesystem contents on the card then run:
-
-    (SRC=$(pwd); cd /media/root/ && sudo rm -rf * && pv -cN in $SRC/rootfs.tar|sudo tar x)
+in `/media/boot` and `/media/root`.
 
 ## Compiling a GCC toolchain
 
