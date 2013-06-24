@@ -84,16 +84,19 @@ The `./cpboot` command will copy the kernel and bootloader files to `/media/boot
 about any changes you may have made to `uEnv.txt`.
 
 The `./cproot` command will unpack the new rootfs into `/media/root` while preserving:
+
  * `/etc/ssh_host*` files
  * the whole `/root` directory
+
 unless the `clean` argument is passed (`./cproot clean`). This helps avoid problems with SSH host identification
 change warnings and preserves the SSH authorized key list as well as any other files you may have left in the
 root user home dir.
 
 Both scripts need administrator access so they make frequent use of `sudo`. If you are building remotely then
 you will have to transfer the `output/images` directory to the computer with the SD card reader before running
-the scripts. Feel free to edit these scripts as needed (for example if you wish to rename the destination
-directories).
+the scripts (you can use the `./sync-images` script for this). Default directories can be changed from the
+command line by setting environment variables (i.e. `SRVPATH="iris:/opt/buildroot" ./sync-images`).
+See the sources for details.
 
 ### Using the Network Block Device (ndb) server
 
